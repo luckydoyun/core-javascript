@@ -8,3 +8,5 @@
 // };
 
 // liverServer.start(params)
+console.log("hello~");
+console.log(self);

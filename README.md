@@ -5,7 +5,9 @@
 ## 자바스크립트 코어에 대해 학습합니다.
 
 - [x] Code Structure
-- [ ] Variables
-- [ ] Strict Mode
+- [x] Variables
+- [x] Strict Mode
+- [x] Global This
+- [x] Data Types
 
 [JavaScript Core 브렌치](https://www.naver.com)
