@@ -1,10 +1,12 @@
-// const liverServer = require('live-server');
+// const liveServer = require('live-server');
 
 // const params = {
 //   host: 'localhost',
 //   port: 3000,
 //   open: false,
-//   root: './client'
+//   root: './client',
 // };
 
-// liverServer.start(params)
+// liveServer.start(params);
+
+console.log(globalThis);
