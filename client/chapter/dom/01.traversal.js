@@ -34,10 +34,12 @@ let [first, second, third] = span;
 
 
 
-
 console.log("getNode('.first') : ", getNode('.first'));
-console.log("getNode(2223) : ", getNode(2223));
+// console.log("getNode(2223) : ", getNode(2223));
 
 /* 문서 대상 확인 */
 // - matches
+console.log(getNode('.first').matches('.first'));
+console.log(getNode('.first').matches('.fㅇㅇirst'));
 // - contains
+console.log("getNode('h1').contains(getNode('.first')) : ", getNode('h1').contains(getNode('.first')));
