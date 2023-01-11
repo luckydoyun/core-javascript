@@ -1,0 +1,22 @@
+function addClass(node, className) {
+  node = getNode(node);
+  if(typeof className !== 'string')
+    typeError('addClass 함수의 두 번째 인자는 문자 타입 이어야 합니다.');
+    
+  node.classList.add(className);
+  }
+
+function removeClass(node, className) {
+  node = getNode(node);
+  if(typeof className !== 'string')
+   typeError('removeClass 함수의 두 번째 인자는 문자 타입 이어야 합니다.');
+  
+  node.classList.remove(className);
+}
+
+function toggleClass(node, className) {
+  node = getNode(node);
+  if(typeof className !== 'string')
+   typeError('toggleClass 함수의 두 번째 인자는 문자 타입 이어야 합니다.');
+  node.classList.toggle(className);  
+}
