@@ -36,3 +36,21 @@ addClass('.first', 'jieun');
 removeClass('.first','sejin');
 toggleClass('.first','jieun');
 toggleClass('.first','jieun');
+
+first.style.backgroundColor = 'red';
+first.style.marginLeft = '30px';
+first.style.transform = 'rotate(360deg)';
+
+console.log("first.style.fontSize : ", first.style.fontSize);
+console.log("getComputedStyle(first).fontSize : ", getComputedStyle(first).fontSize);
+
+
+
+
+
+
+
+console.log("getCss('.first','fontSize') : ", getCss('.first','fontSize'));
+// console.log("getCss('.first','fontSize') : ", getCss('.first','fontSize234'));
+css('.first','fontSize','60px');
+console.log("css('.first','fontSize') : ", css('.first','fontSize'));
