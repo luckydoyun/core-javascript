@@ -1,4 +1,7 @@
-// import { getNode } from "./getNode.js";
+
+import { getNode } from "./getNode.js";
+import { typeError, syntaxError } from "../error/index.js";
+
 
 export function addClass(node,className){
   
@@ -28,6 +31,7 @@ export function removeClass(node,className){
   node.classList.remove(className)  
 }
 
+
 export function toggleClass(node,className){
   if(typeof node === 'string') node = getNode(node);
   if(typeof className !== 'string'){
@@ -36,6 +40,9 @@ export function toggleClass(node,className){
 
   node.classList.toggle(className)
 }
+
+
+
 
 function getCss(node,prop){
   if(typeof node === 'string'){
@@ -48,7 +55,9 @@ function getCss(node,prop){
   return getComputedStyle(node)[prop]
 }
 
+
 // jQuery
+
 // 대상에게 원하는 css 속성을 추가 = set
 function setCss(node,prop,value){
   if(typeof node === 'string'){
@@ -68,6 +77,7 @@ function setCss(node,prop,value){
   node.style[prop] = value;
 
 }
+
 
 export const css = (node,prop,value) => { 
   return !value ? getCss(node,prop) : setCss(node,prop,value) 
