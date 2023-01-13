@@ -13,7 +13,7 @@ first.classList.add('doyun');
 //first.classList.remove('doyun');
 
 console.log("first.classList.contains('doyun') : ", first.classList.contains('doyun'));
-console.log("first.classList.contains('jieun') : ", first.classList.contains('jieun'));
+console.log("first.classList.contains('hello') : ", first.classList.contains('hello'));
 
 
 
@@ -31,11 +31,11 @@ console.log("first.classList.contains('jieun') : ", first.classList.contains('ji
 
 
 //addClass('.first', 123);
-addClass('.first', 'sejin');
+/* addClass('.first', 'sejin');
 addClass('.first', 'jieun');
 removeClass('.first','sejin');
 toggleClass('.first','jieun');
-toggleClass('.first','jieun');
+toggleClass('.first','jieun'); */
 
 first.style.backgroundColor = 'red';
 first.style.marginLeft = '30px';
