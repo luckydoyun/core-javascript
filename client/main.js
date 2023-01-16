@@ -1,4 +1,12 @@
-import { diceAnimation, getNode } from "./lib/index.js";
+import {
+  diceAnimation, getNode, getNodes, disableElement, enabledElement,
+  visibleElement,
+  invisibleElement,
+  insertLast,
+  clearContents,
+  attr,
+  memo
+} from "./lib/index.js";
 
 /* 
 [주사위 굴리기]
@@ -10,8 +18,34 @@ import { diceAnimation, getNode } from "./lib/index.js";
 //diceAnimation()
 
 */
+const [rollingDiceButton, recordButton, resetButton] = getNodes('.buttonGroup > button');
+const recordListWrapper = getNode('.recordListWrapper');
+// const recordListbody = getNode('.recordList > tbody');
+memo('@tbody',()=>getNode('.recordListWrapper tbody'));
+let sum = 0;
 
-const rollingDiceButton = getNode('.buttonGroup > button:nth-child(1)');
+function renderRecordListItem() {
+  // console.log(recordListbody);
+  // let dataDice = +getNode('#cube').dataset['dice'];
+  let dataDice = +attr(memo('cube'),'data-dice');
+  sum = sum + dataDice;
+
+  let template = /* html */`
+  <tr>
+    <td>${memo('@tbody').rows.length + 1}</td>
+    <td>${dataDice}</td>
+    <td>${sum}</td>
+  </tr>
+  `;
+  insertLast(memo('@tbody'),template);
+  recordListWrapper.scrollTop = recordListWrapper.scrollHeight;
+}
+
+
+
+/* -------------------------------------------------------------------------- */
+/*                                    event                                   */
+/* -------------------------------------------------------------------------- */
 
 const handlerRollingDice = (() => {
 
@@ -21,9 +55,15 @@ const handlerRollingDice = (() => {
   return () => {
 
     if (!isRolling) {
-      stopAnimation = setInterval(diceAnimation, 500);
+      stopAnimation = setInterval(diceAnimation, 150);
+
+      disableElement(recordButton);
+      disableElement(resetButton);
+
     } else {
       clearInterval(stopAnimation);
+      enabledElement(recordButton);
+      enabledElement(resetButton);
     }
 
     isRolling = !isRolling;
@@ -31,28 +71,23 @@ const handlerRollingDice = (() => {
     //clearTimeout(id);
   }
 }
-  
+
 )();
 
-// const handlerRollingDice = () => {
+const handlerRecord = () => {
+  visibleElement(recordListWrapper);
 
-//   let stopAnimation;
-//   let isRolling = false;
+  renderRecordListItem();
+}
 
-//   return () => {
-
-//     if (!isRolling) {
-//       stopAnimation = setInterval(diceAnimation, 500);
-//     } else {
-//       clearInterval(stopAnimation);
-//     }
-
-//     isRolling = !isRolling;
-//     //clearInterval(id);
-//     //clearTimeout(id);
-//   }
-// };
+const handlerReset = () => {
+  invisibleElement(recordListWrapper);
+  clearContents(memo('@tbody'));
+  sum = 0;
+}
 
 
 
 rollingDiceButton.addEventListener('click', handlerRollingDice);
+recordButton.addEventListener('click', handlerRecord);
+resetButton.addEventListener('click',handlerReset);
