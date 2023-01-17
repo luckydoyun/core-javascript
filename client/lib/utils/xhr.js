@@ -26,7 +26,7 @@ const data = {
   }
 };
 
-function xhrData({
+export function xhrData({
   url = '',
   method = 'GET',
   body = null,
@@ -49,6 +49,8 @@ function xhrData({
   // Object.entries(headers).forEach(([key, value])=>{
   //   xhr.setRequestHeader(key, value);
   // });
+  console.log(xhr);
+  console.log(xhr.readyState);
 
 
   //객체 구조 분해 할당
@@ -56,15 +58,29 @@ function xhrData({
   xhr.addEventListener('readystatechange', () => {
     const { status, readyState, response } = xhr;
     // console.log('addEventListener 에서 readystatechange 실행 후 readyState : ', readyState);
+    if(xhr.readyState === 2){
+      console.log(xhr);
+      console.log("xhr.readyState : ", xhr.readyState);
+    }
+    if(xhr.readyState === 4){
+      console.log(xhr);
+      console.log("xhr.readyState : ", xhr.readyState);
+    }
     // console.log('addEventListener 에서 readystatechange 실행 후 status : ', status);
     if (status >= 200 && status < 400) {
       if (readyState === 4) {
-        console.log('통신 성공');
+        // console.log('통신 성공');
         onSuccess(JSON.parse(response));
       }
     } else {
-
-      onFail('통신 실패');
+      if(readyState ===2)
+        onFail('readyState :2 그리고 통신 실패');
+      if(readyState ===3)
+        onFail('readyState :3 그리고 통신 실패');
+      if(readyState ===4)
+        onFail('readyState :4 그리고 통신 실패');
+      else
+        onFail('다른 경우 통신 실패');
       // console.error('통신 실패');
     }
 
@@ -129,28 +145,28 @@ xhrData.delete = (url, onSuccess, onFail) => {
 };
 
 // console.dir(xhrData);
-xhrData.post(
-  'https://jsonplaceholder.typicode.com/users',
-  data,
-  (res) => {
-    console.log(`post 성공 ${res}`);
-    console.log(res);
-  },
-  (err) => {
-    console.log(`post 실패 ${err}`);
-  }
-);
+// xhrData.post(
+//   'https://jsonplaceholder.typicode.com/users',
+//   data,
+//   (res) => {
+//     console.log(`post 성공 ${res}`);
+//     console.log(res);
+//   },
+//   (err) => {
+//     console.log(`post 실패 ${err}`);
+//   }
+// );
 
-xhrData.delete(
-  'https://jsonplaceholder.typicode.com/users/1',
-  (res) => {
-    console.log(`delete 성공 ${res}`);
-    console.log(res);
-  },
-  (err) => {
-    console.log(`delete 실패 ${err}`);
-  }
-);
+// xhrData.delete(
+//   'https://jsonplaceholder.typicode.com/users/1',
+//   (res) => {
+//     console.log(`delete 성공 ${res}`);
+//     console.log(res);
+//   },
+//   (err) => {
+//     console.log(`delete 실패 ${err}`);
+//   }
+// );
 
 
 xhrData.get(
