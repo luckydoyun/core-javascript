@@ -8,6 +8,8 @@ readyState
 4: complete
 */
 
+import { typeError } from "../error/typeError.js";
+
 
 const data = {
   "id": 1,
@@ -26,6 +28,7 @@ const data = {
   }
 };
 
+// 콜백 방식
 export function xhrData({
   url = '',
   method = 'GET',
@@ -49,24 +52,15 @@ export function xhrData({
   // Object.entries(headers).forEach(([key, value])=>{
   //   xhr.setRequestHeader(key, value);
   // });
-  console.log(xhr);
-  console.log(xhr.readyState);
+  // console.log(xhr);
+  // console.log(xhr.readyState);
 
 
   //객체 구조 분해 할당
 
   xhr.addEventListener('readystatechange', () => {
     const { status, readyState, response } = xhr;
-    // console.log('addEventListener 에서 readystatechange 실행 후 readyState : ', readyState);
-    if(xhr.readyState === 2){
-      console.log(xhr);
-      console.log("xhr.readyState : ", xhr.readyState);
-    }
-    if(xhr.readyState === 4){
-      console.log(xhr);
-      console.log("xhr.readyState : ", xhr.readyState);
-    }
-    // console.log('addEventListener 에서 readystatechange 실행 후 status : ', status);
+  
     if (status >= 200 && status < 400) {
       if (readyState === 4) {
         // console.log('통신 성공');
@@ -74,11 +68,11 @@ export function xhrData({
       }
     } else {
       if(readyState ===2)
-        onFail('readyState :2 그리고 통신 실패');
-      if(readyState ===3)
-        onFail('readyState :3 그리고 통신 실패');
-      if(readyState ===4)
-        onFail('readyState :4 그리고 통신 실패');
+        onFail('readyState :2 즉, 통신 실패');
+      else if(readyState ===3)
+        onFail('readyState :3 즉, 통신 실패');
+      else if(readyState ===4)
+        onFail('readyState :4 즉, 통신 실패');
       else
         onFail('다른 경우 통신 실패');
       // console.error('통신 실패');
@@ -169,7 +163,7 @@ xhrData.delete = (url, onSuccess, onFail) => {
 // );
 
 
-xhrData.get(
+/* xhrData.get(
   'https://jsonplaceholder.typicode.com/users',
   (res) => {
     console.log(`get 성공`);
@@ -177,5 +171,73 @@ xhrData.get(
   },
   (err) => {
     console.log(`get 실패 ${err}`);
+  }
+); */
+
+
+/* -------------------------------------------------------------------------- */
+/*                                 promise API                                */
+/* -------------------------------------------------------------------------- */
+
+const defaultOptions = {
+  url: '',
+  method: 'GET',
+  headers: {
+    'Content-Type': 'applicaiton/json',
+    'Access-Control-Allow-Origin': '*',
+    'name': 'Luckydoyun',
+  },
+  body: null
+}
+
+function xhrPromise(options = {}){
+
+  const xhr = new XMLHttpRequest();
+
+  const {method, url, body, headers} = Object.assign({}, defaultOptions, options);
+
+  if(!url) typeError('서버와 통신할 url 인자는 반드시 필수값입니다.');
+
+  xhr.open(method, url);
+
+  xhr.send(body ? JSON.stringify(body) : null);
+
+  return new Promise((resolve, reject)=>{
+    xhr.addEventListener('readystatechange',()=>{
+      const {status, readyState, response} = xhr;
+
+      if(status >= 200 && status < 400){
+        if(readyState === 4){
+          resolve(JSON.parse(response));
+        }
+      }else{
+        reject('promise 통신 실패');
+      }
+    })
+  });
+}
+
+// xhrPromise();
+
+xhrPromise({url: 'https://jsonplaceholder.typicode.com/users'})
+.then((res)=>{
+  console.log('promise success');
+  console.log(res);
+})
+.catch((err)=>{
+  console.log('promise failed');
+  console.log(err);
+});
+
+xhrData.get(
+  // 'www.naver.com',
+  'https://jsonplaceholder.typicode.com/users',
+  (res)=>{
+    console.log('xhrData callback success');
+    console.log(res);
+  },
+  (err)=>{
+    console.log('xhrData callback failed');
+    console.log(err);
   }
 );
