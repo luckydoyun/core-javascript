@@ -6,7 +6,7 @@ const defaultOptions = {
   cache: 'no-cache',
   credential: 'same-origin',
   redirect: 'follow',
-  referrerPolicy: 'no-reffere',
+  referrerPolicy: 'no-referrer',
   headers: {
     'Content-Type': 'application/json; charset=UTF-8',
   }
@@ -18,7 +18,7 @@ const defaultOptions = {
 export const doyun = async (options = {}) => {
 
   // let defaultOptions = {...defaultOptions};
-  console.log(options);
+  // console.log(options);
   const { url, ...restOptions } = {
                                     ...defaultOptions,
                                     ...options,
@@ -27,8 +27,8 @@ export const doyun = async (options = {}) => {
                                       ...options.headers
                                     }
                                   };
-  console.log(url);
-  console.log(restOptions);
+  // console.log(url);
+  // console.log(restOptions);
 
 
   let response = await fetch(url, restOptions);
@@ -40,7 +40,7 @@ export const doyun = async (options = {}) => {
     response.data = await response.json();
   }
 
-  console.log("doyun() 안에 있는 await으로 받은 response : ", response);
+  // console.log("doyun() 안에 있는 await으로 받은 response : ", response);
   return response;
 
 }

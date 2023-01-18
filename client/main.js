@@ -1,4 +1,4 @@
-import { doyun, insertLast, xhrData, xhrPromise } from "./lib/index.js";
+import { delayP, doyun, insertLast, xhrData, xhrPromise } from "./lib/index.js";
 
 /* xhrData.get(
   'https://jsonplaceholder.typicode.com/users/13',
@@ -33,4 +33,15 @@ import { doyun, insertLast, xhrData, xhrPromise } from "./lib/index.js";
 let urlUser1 = 'https://jsonplaceholder.typicode.com/users/1';
 // console.log( "doyun() : ", doyun({url:urlUser1, defaultOptions}) );
 // console.log( "await doyun() : ", await doyun() );
-doyun.get(urlUser1,{headers: {"name": "luckyDoyun"}});
+
+async function tset() {
+  let result = await delayP(2000);
+  console.log(result);
+  
+  let response = await doyun.get(urlUser1,{headers: {"name": "luckyDoyun"}});
+  console.log("response : ", response);
+  console.log("response.data : ", response.data);
+  // console.log(response);
+}
+ 
+tset();

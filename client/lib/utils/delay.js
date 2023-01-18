@@ -68,7 +68,7 @@ export function delayP(
   
   // defaultOptions 객체 복사
   let config = {...defaultOptions};
-  console.log(options);
+  // console.log(options);
 
   if(isNumber(options)){
     config.timeout = options;
@@ -91,8 +91,8 @@ export function delayP(
 
   return new Promise((resolve, reject) => {
     setTimeout(() => {
-      console.log(shouldReject);
-      console.log(timeout);
+      // console.log(shouldReject);
+      // console.log(timeout);
       if(!shouldReject){
          resolve(successMessage);
       }
