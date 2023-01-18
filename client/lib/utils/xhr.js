@@ -190,7 +190,7 @@ const defaultOptions = {
   body: null
 }
 
-function xhrPromise(options = {}){
+export function xhrPromise(options = {}){
 
   const xhr = new XMLHttpRequest();
 
@@ -219,7 +219,10 @@ function xhrPromise(options = {}){
 
 // xhrPromise();
 
-xhrPromise({url: 'https://jsonplaceholder.typicode.com/users'})
+/* -------------------------------------------------------------------------- */
+/*                      xhrPromise, xhrCallback test code                     */
+/* -------------------------------------------------------------------------- */
+/* xhrPromise({url: 'https://jsonplaceholder.typicode.com/users'})
 .then((res)=>{
   console.log('promise success');
   console.log(res);
@@ -240,4 +243,36 @@ xhrData.get(
     console.log('xhrData callback failed');
     console.log(err);
   }
-);
+); */
+
+xhrPromise.get = (url) => {
+  return xhrPromise({
+    url
+  })
+}
+
+
+xhrPromise.post = (url,body) => {
+  return xhrPromise({
+    url,
+    body,
+    method:'POST'
+  })
+}
+
+
+xhrPromise.put = (url,body) => {
+  return xhrPromise({
+    url,
+    body,
+    method:'PUT'
+  })
+}
+
+
+xhrPromise.delete = (url) => {
+  return xhrPromise({
+    url,
+    method:'DELETE'
+  })
+}

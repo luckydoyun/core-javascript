@@ -13,16 +13,8 @@ function delay(callback, timeout = 1000){
 
 };
 
-/* delay(()=>{
-  first.style.top = '-100px';
-});
-first.style.transform = 'rotate(360deg)'; */
-// first.style.top = '0px';
-
-// second.style.transform = 'rotate(360deg)';
-
-console.log(first);
-console.log(second);
+// console.log(first);
+// console.log(second);
 
 first.addEventListener('load',()=>{
   console.log('hello');
@@ -112,11 +104,30 @@ export function delayP(
 }
 
 
-/* delayP({
-  timeout: 3000
-}).then((result)=>{
-  console.log(result);
-})
-.catch((err)=>{
-  console.log(err);
-}); */
+/* -------------------------------------------------------------------------- */
+/*                                 async awit                                 */
+/* -------------------------------------------------------------------------- */
+
+let result = 0;
+
+
+
+/* async function testA() {
+  let promise = new Promise((resolve, reject)=>{
+    setTimeout(() => {
+      resolve("이해 완료!");
+    }, 1000);
+  })
+
+  let result = await promise;
+  return result;
+}
+
+console.log('즉시 찍기 result : ', result);
+
+result = await testA();
+// result = testA();
+
+setTimeout(() => {
+  console.log('3초 후에 찍기 result : ', result);
+}, 3000); */
