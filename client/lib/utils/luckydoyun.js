@@ -77,3 +77,7 @@ doyun.put = (url, body, options) => {
                  ...options
               })
 }
+
+// let urlUser1 = 'https://jsonplaceholder.typicode.com/users/1';
+// console.log( "doyun() : ", doyun({url:urlUser1, defaultOptions}) );
+// console.log( "await doyun() : ", doyun.delete(urlUser1) );

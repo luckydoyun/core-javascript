@@ -16,9 +16,6 @@ function delay(callback, timeout = 1000){
 // console.log(first);
 // console.log(second);
 
-first.addEventListener('load',()=>{
-  console.log('hello');
-})
 /* 
 delayP().then( ()=>{
   first.style.top = '-100px';
